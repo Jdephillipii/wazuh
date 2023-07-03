@@ -66,7 +66,7 @@
 #define OS_MAX_LOG_SIZE OS_MAXSTR - OS_LOG_HEADER   /* Maximum log size with a header protection */
 
 /* Some global names */
-#define __ossec_name    "Wazuh"
+#define __ossec_name    "Peerless SIEM"
 #define __ossec_version "v4.7.0"
 #define __author        "Wazuh Inc."
 #define __contact       "info@wazuh.com"
