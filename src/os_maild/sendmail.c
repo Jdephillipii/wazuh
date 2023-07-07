@@ -94,7 +94,7 @@ int OS_Sendsms(MailConfig *mail, struct tm *p, MailMsg *sms_msg)
         if (mail->heloserver) {
             snprintf(snd_msg, 127, "Helo %s\r\n", mail->heloserver);
         } else {
-            snprintf(snd_msg, 127, "Helo %s\r\n", "notify.ossec.net");
+            snprintf(snd_msg, 127, "Helo %s\r\n", "siem.getpeerless.com");
         }
         OS_SendTCP(socket, snd_msg);
         msg = OS_RecvTCP(socket, OS_SIZE_1024);
@@ -250,8 +250,6 @@ int OS_Sendsms(MailConfig *mail, struct tm *p, MailMsg *sms_msg)
 
     if (sendmail) {
         fprintf(sendmail, "%s", snd_msg);
-        fprintf(sendmail, MIME_VERSION);
-        fprintf(sendmail, CONTENT_TYPE);
         fprintf(sendmail, ENDHEADER);
         fprintf(sendmail, "%s", sms_msg->body);
 
@@ -260,8 +258,6 @@ int OS_Sendsms(MailConfig *mail, struct tm *p, MailMsg *sms_msg)
         }
     } else {
         OS_SendTCP(socket, snd_msg);
-        OS_SendTCP(socket, MIME_VERSION);
-        OS_SendTCP(socket, CONTENT_TYPE);
         OS_SendTCP(socket, ENDHEADER);
 
         /* Send body */
@@ -580,6 +576,15 @@ int OS_Sendmail(MailConfig *mail, struct tm *p)
         } else {
             OS_SendTCP(socket, snd_msg);
         }
+    }
+
+    /* Enable HTML Support */
+    if (sendmail) {
+        fprintf(sendmail, MIME_VERSION);
+        fprintf(sendmail, CONTENT_TYPE);
+    } else {
+        OS_SendTCP(socket, MIME_VERSION);
+        OS_SendTCP(socket, CONTENT_TYPE);
     }
 
     /* Send subject */
