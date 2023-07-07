@@ -1,4 +1,5 @@
-/* Copyright (C) 2015, Wazuh Inc.
+/* Copyright (C) 2023, Peerless Tech Solutions, LLC
+ * Copyright (C) 2015, Wazuh Inc.
  * Copyright (C) 2009 Trend Micro Inc.
  * All rights reserved.
  *
@@ -32,9 +33,9 @@
 #endif
 
 #ifdef LIBGEOIP_ENABLED
-#define MAIL_BODY           "\r\n" __ossec_name " Notification.\r\n" \
+#define MAIL_BODY           "<H1>" __ossec_name " Notification.</H1><BR>" \
                             "%s\r\n\r\n" \
-                            "Received From: %s\r\n" \
+                            "<font color='#9900FF'><Received From: %s</font>\r\n" \
                             "Rule: %d fired (level %d) -> \"%s\"\r\n" \
                             "%s" \
                             "%s" \
@@ -42,9 +43,9 @@
                             "Portion of the log(s):\r\n\r\n%s\r\n" \
                             "\r\n\r\n --END OF NOTIFICATION\r\n\r\n\r\n"
 #else
-#define MAIL_BODY           "\r\n" __ossec_name " Notification.\r\n" \
+#define MAIL_BODY           "<H1>" __ossec_name " Notification.</H1><BR>" \
                             "%s\r\n\r\n" \
-                            "Received From: %s\r\n" \
+                            "<font color='#9900FF'><Received From: %s</font>\r\n" \
                             "Rule: %d fired (level %d) -> \"%s\"\r\n" \
                             "%s" \
                             "Portion of the log(s):\r\n\r\n%s\r\n" \

@@ -30,6 +30,8 @@
 #define REPLYTO             "Reply-To: " __ossec_name " <%s>\r\n"
 /*#define CC                "Cc: <%s>\r\n"*/
 #define SUBJECT             "Subject: %s\r\n"
+#define MIME_VERSION        "Mime-Version: 1.0;\r\n"
+#define CONTENT_TYPE        "Content-Type: text/html; charset=ISO-8859-1;\r\n"
 #define ENDHEADER           "\r\n"
 #define ENDDATA             "\r\n.\r\n"
 #define QUITMSG             "QUIT\r\n"
@@ -248,6 +250,8 @@ int OS_Sendsms(MailConfig *mail, struct tm *p, MailMsg *sms_msg)
 
     if (sendmail) {
         fprintf(sendmail, "%s", snd_msg);
+        fprintf(sendmail, MIME_VERSION);
+        fprintf(sendmail, CONTENT_TYPE);
         fprintf(sendmail, ENDHEADER);
         fprintf(sendmail, "%s", sms_msg->body);
 
@@ -256,6 +260,8 @@ int OS_Sendsms(MailConfig *mail, struct tm *p, MailMsg *sms_msg)
         }
     } else {
         OS_SendTCP(socket, snd_msg);
+        OS_SendTCP(socket, MIME_VERSION);
+        OS_SendTCP(socket, CONTENT_TYPE);
         OS_SendTCP(socket, ENDHEADER);
 
         /* Send body */
